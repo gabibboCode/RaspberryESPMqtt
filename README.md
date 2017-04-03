@@ -2,7 +2,7 @@
 
 All steps to install a working Moquitto broker on RaspberryPi
 
-# Install Raspbian, enable wifi and ssh
+## Install Raspbian, enable wifi and ssh
 
 - Download Rasbian Lite from https://www.raspberrypi.org/downloads/raspbian/
 - Rename downloaded *.img -> image.img
@@ -19,12 +19,12 @@ ssh pi@raspberrypi.local
 raspberry
 ```
 
-# Install NodeRed and latest NodeJS
+## Install NodeRed and latest NodeJS
 ```
 bash <(curl -sL https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/update-nodejs-and-nodered)
 ```
 
-# Install Mosquitto
+## Install Mosquitto
 ```
 curl -O http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
 sudo apt-key add mosquitto-repo.gpg.key
