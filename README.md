@@ -26,13 +26,20 @@ bash <(curl -sL https://raw.githubusercontent.com/node-red/raspbian-deb-package/
 
 ## Install Mosquitto
 ```
-curl -O http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
-sudo apt-key add mosquitto-repo.gpg.key
-rm mosquitto-repo.gpg.key
-cd /etc/apt/sources.list.d/
-sudo curl -O http://repo.mosquitto.org/debian/mosquitto-repo.list
-sudo apt-get update
-sudo apt-get install mosquitto
+sudo apt-get install mosquitto mosquitto_clients
+```
+if you have errors
+  ```
+  curl -O http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
+  sudo apt-key add mosquitto-repo.gpg.key
+  rm mosquitto-repo.gpg.key
+  cd /etc/apt/sources.list.d/
+  sudo curl -O http://repo.mosquitto.org/debian/mosquitto-repo.list
+  sudo apt-get update
+  sudo apt-get install mosquitto mosquitto_clients
+  ```
+then add configurations
+```
 sudo /etc/init.d/mosquitto stop
 nano /etc/mosquitto/conf.d/mosquitto.conf
 
@@ -54,7 +61,6 @@ password_file /etc/mosquitto/passwd
 require_certificate false
 # End Config file
 
-touch /etc/mosquitto/conf.d/passwd
 sudo mosquitto_passwd -c /etc/mosquitto/conf.d/passwd pi
 sudo /etc/init.d/mosquitto start
 ```
