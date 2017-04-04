@@ -61,6 +61,6 @@ password_file /etc/mosquitto/passwd
 require_certificate false
 # End Config file
 
-sudo mosquitto_passwd -c /etc/mosquitto/conf.d/passwd pi
+sudo mosquitto_passwd -c /etc/mosquitto/passwd pi
 sudo /etc/init.d/mosquitto start
 ```
