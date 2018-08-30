@@ -26,17 +26,17 @@ bash <(curl -sL https://raw.githubusercontent.com/node-red/raspbian-deb-package/
 
 ## Install Mosquitto
 ```
-sudo apt-get install mosquitto mosquitto_clients
+sudo apt-get install mosquitto mosquitto-clients
 ```
 if you have errors
   ```
-  curl -O http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
+  wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
   sudo apt-key add mosquitto-repo.gpg.key
   rm mosquitto-repo.gpg.key
   cd /etc/apt/sources.list.d/
   sudo wget http://repo.mosquitto.org/debian/mosquitto-stretch.list
   sudo apt-get update
-  sudo apt-get install mosquitto mosquitto_clients
+  sudo apt-get install mosquitto mosquitto-clients
   ```
 then add configurations
 ```
