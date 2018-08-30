@@ -34,7 +34,7 @@ if you have errors
   sudo apt-key add mosquitto-repo.gpg.key
   rm mosquitto-repo.gpg.key
   cd /etc/apt/sources.list.d/
-  sudo curl -O http://repo.mosquitto.org/debian/mosquitto-repo.list
+  sudo wget http://repo.mosquitto.org/debian/mosquitto-stretch.list
   sudo apt-get update
   sudo apt-get install mosquitto mosquitto_clients
   ```
