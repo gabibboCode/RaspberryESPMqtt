@@ -110,9 +110,9 @@ sudo nano /home/homebridge/.homebridge/config.json
 {
   "bridge": {
     "name": "Homebridge",
-    "username": "BA:7C:B0:C6:69:9A",
+    "username": "B1:7C:B0:C6:69:9A",
     "port": 51826,
-    "pin": "918-19-468"
+    "pin": "918-19-408"
   },
   "description": "SmartHome with Homebridge",
   "platforms": [],
@@ -123,7 +123,7 @@ sudo nano /home/homebridge/.homebridge/config.json
       "name": "Stereo mansarda",
       "url": "mqtt://192.168.1.9",
       "username": "homebridge",
-      "password": "89b0d1",
+      "password": "raspberry",
       "topics": {
         "statusGet": "Home/sonoff_stereo/stat/POWER",
         "statusSet": "Home/sonoff_stereo/cmnd/POWER",
