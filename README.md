@@ -37,10 +37,8 @@ node -v
 ## Add Mosquitto user
 ```
 sudo adduser mosquitto
-sudo usermod -aG sudo mosquitto
-```
-Exit and login as mosquitto user
-```
+sudo adduser mosquitto sudo
+exit
 ssh mosquitto@raspberrypi.local 
 raspberry
 ```
@@ -84,5 +82,97 @@ require_certificate false
 sudo mosquitto_passwd -c /etc/mosquitto/passwd pi
 sudo systemctl restart mosquitto
 sudo systemctl status mosquitto
-sudo journalctl -u mosquitto
+sudo journalctl -fu mosquitto
+```
+
+
+# Install Homebridge
+
+## Add homebridge user
+```
+sudo adduser homebridge
+sudo adduser homebridge sudo
+exit
+ssh homebridge@raspberrypi.local 
+raspberry
+```
+
+## Homebridge
+```
+sudo apt-get install libavahi-compat-libdnssd-dev
+sudo npm install -g --unsafe-perm homebridge
+```
+## Plugin
+```
+sudo npm install -g homebridge-mqtt-switch-tasmota
+
+sudo nano /home/homebridge/.homebridge/config.json
+{
+"bridge": {
+    "name": "Homebridge",
+    "username": "CC:22:3D:E3:CE:30",
+    "port": 51826,
+    "pin": "031-45-154"
+},
+
+"description": "This is an example configuration file. You can use this as a template for creating your own configuration file.",
+
+"platforms": [],
+  "accessories": [
+    {
+		"accessory": "mqtt-switch-tasmota",
+		"switchType": "outlet",
+	
+		"name": "NAME OF THIS ACCESSORY",
+	
+		"url": "mqtt://MQTT–BROKER-ADDRESS",
+		"username": "MQTT USER NAME",
+		"password": "MQTT PASSWORD",
+	
+		"topics": {
+			"statusGet": "stat/sonoff/RESULT",
+			"statusSet": "cmnd/sonoff/POWER",
+			"stateGet": "tele/sonoff/STATE"
+		},
+		"onValue": "ON",
+		"offValue": "OFF",
+	
+		"activityTopic": "tele/sonoff/LWT",
+        "activityParameter": "Online",
+    
+		"startCmd": "cmnd/sonoff/TelePeriod",
+		"startParameter": "60",
+		
+		"manufacturer": "ITEAD",
+		"model": "Sonoff",
+		"serialNumberMAC": "MAC OR SERIAL NUMBER OR EMPTY"
+	}
+]
+}
+```
+
+## Config
+
+```
+sudo nano /etc/systemd/system/homebridge.service
+
+[Unit]
+Description=Node.js HomeKit Server 
+After=syslog.target network-online.target
+
+[Service]
+Type=simple
+User=homebridge
+EnvironmentFile=/etc/default/homebridge
+ExecStart=/usr/bin/homebridge
+Restart=on-failure
+RestartSec=10
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
+
+
+sudo systemctl daemon-reload
+sudo systemctl enable homebridge
 ```
