@@ -108,46 +108,38 @@ sudo npm install -g homebridge-mqtt-switch-tasmota
 
 sudo nano /home/homebridge/.homebridge/config.json
 {
-"bridge": {
+  "bridge": {
     "name": "Homebridge",
-    "username": "CC:22:3D:E3:CE:30",
+    "username": "BA:7C:B0:C6:69:9A",
     "port": 51826,
-    "pin": "031-45-154"
-},
-
-"description": "This is an example configuration file. You can use this as a template for creating your own configuration file.",
-
-"platforms": [],
+    "pin": "918-19-468"
+  },
+  "description": "SmartHome with Homebridge",
+  "platforms": [],
   "accessories": [
     {
-		"accessory": "mqtt-switch-tasmota",
-		"switchType": "outlet",
-	
-		"name": "NAME OF THIS ACCESSORY",
-	
-		"url": "mqtt://MQTT–BROKER-ADDRESS",
-		"username": "MQTT USER NAME",
-		"password": "MQTT PASSWORD",
-	
-		"topics": {
-			"statusGet": "stat/sonoff/RESULT",
-			"statusSet": "cmnd/sonoff/POWER",
-			"stateGet": "tele/sonoff/STATE"
-		},
-		"onValue": "ON",
-		"offValue": "OFF",
-	
-		"activityTopic": "tele/sonoff/LWT",
-        "activityParameter": "Online",
-    
-		"startCmd": "cmnd/sonoff/TelePeriod",
-		"startParameter": "60",
-		
-		"manufacturer": "ITEAD",
-		"model": "Sonoff",
-		"serialNumberMAC": "MAC OR SERIAL NUMBER OR EMPTY"
-	}
-]
+      "accessory": "mqtt-switch-tasmota",
+      "switchType": "outlet",
+      "name": "Stereo mansarda",
+      "url": "mqtt://192.168.1.9",
+      "username": "homebridge",
+      "password": "89b0d1",
+      "topics": {
+        "statusGet": "Home/sonoff_stereo/stat/POWER",
+        "statusSet": "Home/sonoff_stereo/cmnd/POWER",
+        "stateGet": "Home/sonoff_stereo/tele/STATE"
+      },
+      "onValue": "ON",
+      "offValue": "OFF",
+      "activityTopic": "Home/sonoff_stereo/tele/LWT",
+      "activityParameter": "Online",
+      "startCmd": "Home/sonoff_stereo/cmnd/TelePeriod",
+      "startParameter": "60",
+      "manufacturer": "ITEAD",
+      "model": "Sonoff",
+      "serialNumberMAC": ""
+    }
+  ]
 }
 ```
 
