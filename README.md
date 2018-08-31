@@ -151,11 +151,21 @@ sudo nano /home/homebridge/.homebridge/config.json
 }
 ```
 
-## Config
+## Autostart with systemd
 
 ```
-sudo nano /etc/systemd/system/homebridge.service
+which homebridge
+sudo nano /etc/default/homebridge
 
+# Defaults / Configuration options for homebridge
+# The following settings tells homebridge where to find the config.json file and where to persist the data (i.e. pairing and others)
+HOMEBRIDGE_OPTS=-U /var/homebridge
+
+# If you uncomment the following line, homebridge will log more 
+# You can display this via systemd's journalctl: journalctl -f -u homebridge
+# DEBUG=*
+
+sudo nano /etc/systemd/system/homebridge.service
 [Unit]
 Description=Node.js HomeKit Server 
 After=syslog.target network-online.target
@@ -164,7 +174,7 @@ After=syslog.target network-online.target
 Type=simple
 User=homebridge
 EnvironmentFile=/etc/default/homebridge
-ExecStart=/usr/bin/homebridge
+ExecStart=/usr/bin/homebridge $HOMEBRIDGE_OPTS
 Restart=on-failure
 RestartSec=10
 KillMode=process
@@ -172,7 +182,10 @@ KillMode=process
 [Install]
 WantedBy=multi-user.target
 
-
+sudo mkdir /var/homebridge
+sudo cp ~/.homebridge/config.json /var/homebridge/
+sudo cp -r ~/.homebridge/persist /var/homebridge
+sudo chmod -R 0777 /var/homebridge
 sudo systemctl daemon-reload
 sudo systemctl enable homebridge
 ```
