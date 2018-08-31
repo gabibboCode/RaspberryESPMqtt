@@ -19,9 +19,30 @@ ssh pi@raspberrypi.local
 raspberry
 ```
 
-## Install NodeRed and latest NodeJS
+## Install NodeJS
 ```
-bash <(curl -sL https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/update-nodejs-and-nodered)
+cd ~
+wget https://nodejs.org/dist/v8.11.4/node-v8.11.4-linux-armv6l.tar.xz
+tar -xf node-v8.11.4-linux-armv6l.tar.xz
+rm -rf node-v8.11.4-linux-armv6l.tar.xz
+cd node-v8.11.4-linux-armv6l
+sudo cp -R * /usr/local/
+cd /usr/bin
+sudo ln -s /usr/local/bin/node node
+cd ~
+rm -rf ./node-v8.11.4-linux-armv6l
+node -v
+```
+
+## Add Mosquitto user
+```
+sudo adduser mosquitto
+sudo usermod -aG sudo mosquitto
+```
+Exit and login as mosquitto user
+```
+ssh mosquitto@raspberrypi.local 
+raspberry
 ```
 
 ## Install Mosquitto
@@ -40,8 +61,7 @@ if you have errors
   ```
 then add configurations
 ```
-sudo /etc/init.d/mosquitto stop
-nano /etc/mosquitto/conf.d/mosquitto.conf
+sudo nano /etc/mosquitto/conf.d/mosquitto.conf
 
 # Config file for mosquitto
 #
@@ -62,5 +82,7 @@ require_certificate false
 # End Config file
 
 sudo mosquitto_passwd -c /etc/mosquitto/passwd pi
-sudo /etc/init.d/mosquitto start
+sudo systemctl restart mosquitto
+sudo systemctl status mosquitto
+sudo journalctl -u mosquitto
 ```
