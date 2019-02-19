@@ -12,9 +12,10 @@ diskutil list
 - find sd card disk#
 ```
 diskutil unmountDisk /dev/disk#
-sudo dd bs=1m if=image.img of=/dev/rdisk
+sudo dd bs=1m if=image.img of=/dev/rdisk#
 cp ./wpa_supplicant.conf /Volumes/boot/wpa_supplicant.conf
 touch /Volumes/boot/ssh
+diskutil unmountDisk /dev/disk#
 ssh pi@raspberrypi.local 
 raspberry
 ```
@@ -22,15 +23,15 @@ raspberry
 ## Install NodeJS
 ```
 cd ~
-wget https://nodejs.org/dist/v8.11.4/node-v8.11.4-linux-armv6l.tar.xz
-tar -xf node-v8.11.4-linux-armv6l.tar.xz
-rm -rf node-v8.11.4-linux-armv6l.tar.xz
-cd node-v8.11.4-linux-armv6l
+wget https://nodejs.org/dist/v10.15.1/node-v10.15.1-linux-armv6l.tar.xz
+tar -xf node-v10.15.1-linux-armv6l.tar.xz
+rm -rf node-v10.15.1-linux-armv6l.tar.xz
+cd node-v10.15.1-linux-armv6l
 sudo cp -R * /usr/local/
 cd /usr/bin
 sudo ln -s /usr/local/bin/node node
 cd ~
-rm -rf ./node-v8.11.4-linux-armv6l
+rm -rf ./node-v10.15.1-linux-armv6l
 node -v
 ```
 
